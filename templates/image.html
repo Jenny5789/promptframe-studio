@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PromptFrame Studio</title>
+    <style>
+        :root { --paper:#f4e5d2; --ink:#3c2116; --soft:#fff7ec; --line:#8b6049; --accent:#d88d76; }
+        * { box-sizing:border-box; }
+        body { margin:0; color:var(--ink); background:var(--paper); font-family:Arial, "Noto Sans KR", sans-serif; }
+        .wrap { max-width:1280px; margin:0 auto; padding:48px 42px 60px; }
+        header { margin-bottom:44px; }
+        h1 { margin:0; font-size:clamp(38px,5vw,64px); line-height:.98; letter-spacing:-.055em; font-weight:900; }
+        .subtitle { margin:20px 0 0; font-size:16px; font-weight:700; letter-spacing:.04em; }
+        .underline { width:210px; height:12px; margin:14px 0 0 120px; background:var(--accent); transform:skew(-18deg); }
+        .studio { display:grid; grid-template-columns:1fr 1fr; gap:34px; align-items:stretch; }
+        .form-panel { padding-top:8px; display:flex; flex-direction:column; }
+        .label { display:inline-block; margin:28px 0 12px; padding:7px 20px; background:var(--accent); font-size:20px; font-weight:900; letter-spacing:.02em; transform:skew(-8deg); }
+        .label:first-child { margin-top:0; }
+        textarea { display:block; width:100%; border:2px solid var(--line); border-radius:10px; padding:18px; resize:vertical; background:var(--soft); color:var(--ink); font:16px/1.5 Arial, "Noto Sans KR", sans-serif; outline:none; }
+        textarea:focus { box-shadow:0 0 0 3px #d88d7644; }
+        button { width:100%; margin-top:28px; padding:18px; border:0; border-radius:8px; color:var(--soft); background:var(--ink); font-size:22px; font-weight:900; letter-spacing:.02em; cursor:pointer; }
+        button:hover { background:#5b3324; }
+        .result { height:100%; min-height:0; padding:18px; border:1px solid #dec4a8; border-radius:12px; background:#fff8eeaa; box-shadow:0 14px 30px #68432b22; }
+        .result-title { display:inline-block; margin:0 0 16px; padding:8px 24px; background:var(--accent); font-size:20px; font-weight:900; transform:skew(-8deg); }
+        .result img { display:block; width:100%; max-height:680px; object-fit:cover; border-radius:5px; }
+        .empty { min-height:420px; display:grid; place-items:center; color:#916f5c; font-weight:700; text-align:center; border:2px dashed #cba98d; }
+        @media (max-width:800px) { .wrap { padding:28px 20px 40px; } .studio { grid-template-columns:1fr; } }
+    </style>
+</head>
+<body>
+    <main class="wrap">
+        <header>
+            <h1>PROMPT FRAME STUDIO</h1>
+            <div class="underline"></div>
+            <p class="subtitle">TURN PROMPTS INTO PHOTOGRAPHS</p>
+        </header>
+        <section class="studio">
+            <form class="form-panel" method="post">
+                <div class="label">PHOTO PROMPT</div>
+                <textarea name="pos" rows="7" placeholder="생성하고 싶은 이미지의 장면과 분위기를 입력하세요.">{{pos}}</textarea>
+                <div class="label">EXCLUDE</div>
+                <textarea name="neg" rows="4" placeholder="제외할 요소를 입력하세요.">{{neg}}</textarea>
+                <button type="submit">GENERATE IMAGE</button>
+            </form>
+            <section class="result">
+                <h2 class="result-title">RESULT</h2>
+                {% if img_url %}
+                    <img src="{{img_url}}" alt="생성된 이미지">
+                {% else %}
+                    <div class="empty">생성된 이미지가 여기에 표시됩니다.</div>
+                {% endif %}
+            </section>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,12 @@
+services:
+  flaskserver:
+    build: .
+    container_name: promptframe-flask
+    ports:
+      - "5000:5000"
+    environment:
+      COMFY_URL: "${COMFY_URL:-http://192.168.24.135:8188}"
+    volumes:
+      - .:/workspace/comfyui
+    working_dir: /workspace/comfyui
+    command: python app.py
